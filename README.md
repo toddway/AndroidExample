@@ -154,10 +154,12 @@ Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions f
 We must use a ViewModelProvider.Factory.   
 
 Several pieces of this application can be developed and built as independent modules.
-The diagram below graphs the local module dependencies:
+The diagram below graphs the local module dependencies.  Green boxes are Android Modules, red boxes are 
+JVM modules, and orange boxes are Kotlin Multiplatform modules. 
 
 <img src="docs/project.dot.png" alt="Local Dependency Graph"/>
 
-And here is a graph of the remote module dependencies (excluding transitive dependencies):
+And here is a graph of the remote module dependencies (excluding transitive dependencies).  White
+boxes are local modules, orange boxes are remote modules.
 
 <img src="docs/dependency-graph-my-generator.png" alt="Remote Dependency Graph"/>
