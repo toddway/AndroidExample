@@ -178,14 +178,11 @@ class MainModule {
 <img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent"/>
 
 ### [Component Diagram](https://c4model.com/#ComponentDiagram) of Local Module Dependencies (Gradle)
-Several pieces of this application can be developed and built as independent modules.
-The diagram below graphs the local module dependencies.  Green boxes are Android Modules, red boxes are 
-JVM modules, and orange boxes are Kotlin Multiplatform modules. 
+Green boxes are Android Modules, red boxes are JVM modules, and orange boxes are Kotlin Multiplatform modules.  Arrows point to the dependency. 
 
 <img src="docs/project.dot.png" alt="Local Dependency Graph"/>
 
 ### [Component Diagram](https://c4model.com/#ComponentDiagram) of Remote Module Dependencies (Gradle)
-And here is a graph of the remote module dependencies (excluding transitive dependencies).  White
-boxes are local modules, orange boxes are remote modules.
+White boxes are local modules, orange boxes are remote modules. Transitive dependencies are excluded. Arrows point to the dependency.
 
 <img src="docs/dependency-graph-my-generator.png" alt="Remote Dependency Graph"/>
