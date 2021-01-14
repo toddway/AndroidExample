@@ -108,6 +108,8 @@ Our MainComponent will be a Subcomponent of AppComponent so it can inherit depen
 parent's modules (ThingModule) as well as create some of its own (MainModule) below.  Exposing it's
 factory thru the AppComponent interface (see mainFactory() on the AppComponent above) makes this possible.
 
+<img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent.svg"/>
+
 ```kotlin
 @Subcomponent(modules = [MainModule::class])
 interface MainComponent {
@@ -148,7 +150,14 @@ class MainModule {
 }
 ```
 
-<img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent.svg"/>
-
 Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions for their initialization.
 We must use a ViewModelProvider.Factory.   
+
+Several pieces of this application can be developed and built as independent modules.
+The diagram below graphs the local module dependencies:
+
+<img src="docs/project.dot.png" alt="Local Dependency Graph"/>
+
+And here is a graph of the remote module dependencies (excluding transitive dependencies):
+
+<img src="docs/dependency-graph-my-generator.png" alt="Remote Dependency Graph"/>
