@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Sample Application</string>
+    <string name="add_thing">Add A Thing</string>
+</resources>

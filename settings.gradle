@@ -1,0 +1,6 @@
+include ':accountData'
+include ':featureTwoUi'
+include ':thingData'
+include ':featureOneUi'
+include ':app'
+rootProject.name = "Sample Application"

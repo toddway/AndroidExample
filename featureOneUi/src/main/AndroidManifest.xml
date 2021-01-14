@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.featureone">
+
+    <application>
+        <activity android:name="com.example.featureone.ScreenOneActivity"></activity>
+
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+    </application>
+
+</manifest>
