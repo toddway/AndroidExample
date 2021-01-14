@@ -37,31 +37,10 @@ class ThingsLocalDatasource(var currentId : Int, val fakeDelay: Long)
     }
 }
 ```
-Now in the Application class we can initialize an AppComponent (Dagger) that
-binds ThingsLocalDatasource as the implementation for both ObserveThingUsecase and GenerateThingUsecase.
-
-```kotlin
-class App : Application(), FeatureOneComponent.Provider {
-    val component by lazy { DaggerAppComponent.factory().create(this) }
-}
-
-@Component(modules = [AppModule::class, ThingModule::class])
-@Singleton
-interface AppComponent {
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance appContext: Context) : AppComponent
-    }
-
-    fun mainFactory() : MainComponent.Factory
-}
-```
-
-Note: references here to MainComponent will become clear in future steps as we define dependencies for the MainActivity.
 
 Next we define a ViewModel to:
 1) mediate ui events from our main view (MainActivity) and
-2) broadcast data events from elsewhere (our use cases) that the view should respond to.
+2) broadcast data events (from our use cases) that our view can respond to.
 
 To accomplish this, our ViewModel constructor requires instances of both use cases (described above).
 ```kotlin
@@ -75,12 +54,11 @@ class MainViewModel(
 ```
 
 The MainActivity can now focus on:
-1) delegating button clicks to the MainViewModel (using ViewBinding)
-2) changing text when LiveData changes occur
+1) sending button clicks to the ViewModel (using ViewBinding) and
+2) setting text when data changes are observed (using LiveData)
 
 Initializing ViewBinding and ViewModel instances requires boilerplate that we can delegate
 our dependency provider (Dagger) to inject when `inject(this)` is called.
-
 
 ```kotlin
 class MainActivity : AppCompatActivity() {
@@ -103,12 +81,58 @@ class MainActivity : AppCompatActivity() {
 }
 
 ```
+Now we can use Dagger to generate the graph of dependencies needed to fulfill the @Inject requests above.
+In the Application class we initialize a Dagger AppComponent that
+binds a @Singleton instance of ThingsLocalDatasource as the implementation for both ObserveThingUsecase and GenerateThingUsecase.
+Notice both the AppModule and ThingModule are required to fully build the component.  
+If either one were removed we would get a "missing dependency" compiler error.
 
-Our MainComponent will be a Subcomponent of AppComponent so it can inherit dependencies from the
-parent's modules (ThingModule) as well as create some of its own (MainModule) below.  Exposing it's
-factory thru the AppComponent interface (see mainFactory() on the AppComponent above) makes this possible.
+Note: the reference to MainComponent will be explained in the following step.
 
-<img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent.svg"/>
+```kotlin
+class App : Application(), FeatureOneComponent.Provider {
+    val component by lazy { DaggerAppComponent.factory().create() }
+}
+
+@Component(modules = [AppModule::class, ThingModule::class])
+@Singleton
+interface AppComponent {
+    @Component.Factory
+    interface Factory {
+        fun create() : AppComponent
+    }
+
+    fun mainFactory() : MainComponent.Factory
+}
+
+@Module(subcomponents = [MainComponent::class])
+class AppModule {
+    @Provides @Named("firstThingId") fun provideThingId() : Int = 2
+}
+
+@Module
+class ThingModule {
+    @Provides
+    @Singleton
+    fun ThingsLocalDatasource(@Named("firstThingId") thingId : Int) : ThingsLocalDatasource = ThingsLocalDatasource(thingId, 1000L)
+
+    @Provides
+    fun ObserveThingsUsecase(datasource: ThingsLocalDatasource) : ObserveThingsUsecase = datasource
+
+    @Provides
+    fun AddThingUsecase(datasource: ThingsLocalDatasource) : GenerateThingUsecase = datasource
+}
+```
+### [Code Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AppComponent
+<img src="docs/com.example.myapplication.AppComponent.svg" alt="AppComponent"/>
+
+The component above will likely be useful to several views in our application, but for now we will
+use it only to set up our main view. We create a MainComponent as a Subcomponent of AppComponent so it can inherit dependencies from the
+parent's modules (ThingModule, AppModule above) as well as create some of its own (MainModule below).  Exposing it's
+factory thru the AppComponent interface (mainFactory() method on the AppComponent interface above) makes this possible.
+
+Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions for their initialization.
+We must use a ViewModelProvider.Factory.
 
 ```kotlin
 @Subcomponent(modules = [MainModule::class])
@@ -148,17 +172,19 @@ class MainModule {
         ).get(MainViewModel::class.java)
     }
 }
-```
+``` 
 
-Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions for their initialization.
-We must use a ViewModelProvider.Factory.   
+### [Code Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for MainComponent
+<img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent"/>
 
+### [Component Diagram](https://c4model.com/#ComponentDiagram) of Local Module Dependencies (Gradle)
 Several pieces of this application can be developed and built as independent modules.
 The diagram below graphs the local module dependencies.  Green boxes are Android Modules, red boxes are 
 JVM modules, and orange boxes are Kotlin Multiplatform modules. 
 
 <img src="docs/project.dot.png" alt="Local Dependency Graph"/>
 
+### [Component Diagram](https://c4model.com/#ComponentDiagram) of Remote Module Dependencies (Gradle)
 And here is a graph of the remote module dependencies (excluding transitive dependencies).  White
 boxes are local modules, orange boxes are remote modules.
 

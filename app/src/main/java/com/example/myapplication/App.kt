@@ -35,7 +35,7 @@ interface AppComponent {
 @Module(subcomponents = [MainComponent::class])
 class AppModule {
     @Provides
-    @Named("nextThingId") fun provideThingId() : Int = 2
+    @Named("firstThingId") fun provideThingId() : Int = 2
 
     @Provides
     @Named("screenOneText") fun provideScreenOneText() : String = "This text provided by AppModule!!!"
@@ -49,13 +49,7 @@ class AppModule {
 class ThingModule {
     @Provides
     @Singleton
-    fun ThingsLocalDatasource(
-        @Named("fakeDelay") fakeDelay : Long,
-        @Named("nextThingId") thingId : Int
-    ) : ThingsLocalDatasource = ThingsLocalDatasource(thingId, fakeDelay)
-
-    @Provides
-    @Named("fakeDelay") fun providesFakeDelay() : Long = 1000L
+    fun ThingsLocalDatasource(@Named("firstThingId") thingId : Int) : ThingsLocalDatasource = ThingsLocalDatasource(thingId, 1000L)
 
     @Provides
     fun ObserveThingsUsecase(datasource: ThingsLocalDatasource) : ObserveThingsUsecase = datasource

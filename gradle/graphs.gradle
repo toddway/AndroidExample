@@ -34,8 +34,8 @@ task projectDependencyGraph {
         dot.delete()
 
         dot << 'digraph {\n'
-        dot << "  graph [label=\"${rootProject.name}\\n \",labelloc=t,fontsize=30,ranksep=1.4];\n"
-        dot << '  node [style=filled, fillcolor="#bbbbbb"];\n'
+        dot << "  graph [label=\"\",labelloc=t,fontsize=30,ranksep=1.4];\n"
+        dot << '  node [style=filled, color="#ffffff"];\n'
         dot << '  rankdir=TB;\n'
 
         def rootProjects = []
@@ -84,7 +84,7 @@ task projectDependencyGraph {
                             def traits = dependencies.computeIfAbsent(graphKey) { new ArrayList<String>() }
 
                             if (config.name.toLowerCase().endsWith('implementation')) {
-                                traits.add('style=dotted')
+                                traits.add('style=solid')
                             }
                         }
             }
@@ -98,6 +98,7 @@ task projectDependencyGraph {
 
             traits.add('shape=box')
             if (rootProjects.contains(project)) {
+                traits.add('color="#111111"')
                 traits.add('fillcolor="#ffffff"')
             } else if (multiplatformProjects.contains(project)) {
                 traits.add('fillcolor="#ffd2b3"')

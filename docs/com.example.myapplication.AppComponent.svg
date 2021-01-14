@@ -1,0 +1,92 @@
+<svg width="670px" height="298px"
+ viewBox="0.00 0.00 669.80 297.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0) translate(14.4 283.4)">
+<title>com.example.myapplication.AppComponent</title>
+<polygon fill="white" stroke="transparent" points="-14.4,14.4 -14.4,-283.4 655.4,-283.4 655.4,14.4 -14.4,14.4"/>
+<text text-anchor="middle" x="52" y="-7.8" font-family="Times,serif" font-size="14.00">AppComponent</text>
+<g id="clust1" class="cluster">
+<title>cluster_Entry Points</title>
+<polygon fill="none" stroke="black" points="8,-31 8,-124 179,-124 179,-31 8,-31"/>
+<text text-anchor="middle" x="50" y="-108.8" font-family="Times,serif" font-size="14.00">Entry Points</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Dependency Graph</title>
+<polygon fill="none" stroke="black" points="14,-132 14,-261 633,-261 633,-132 14,-132"/>
+<text text-anchor="middle" x="75" y="-245.8" font-family="Times,serif" font-size="14.00">Dependency Graph</text>
+</g>
+<g id="clust3" class="cluster">
+<title>cluster_Subcomponents</title>
+<polygon fill="none" stroke="black" points="297,-40 297,-115 423,-115 423,-40 297,-40"/>
+<text text-anchor="middle" x="349" y="-99.8" font-family="Times,serif" font-size="14.00">Subcomponents</text>
+</g>
+<!-- abe49a89&#45;e927&#45;4454&#45;bf04&#45;98bd2a2320dd -->
+<g id="node1" class="node">
+<title>abe49a89&#45;e927&#45;4454&#45;bf04&#45;98bd2a2320dd</title>
+<polygon fill="turquoise" stroke="turquoise" stroke-width="2" points="171,-93 16,-93 16,-89 12,-89 12,-85 16,-85 16,-47 12,-47 12,-43 16,-43 16,-39 171,-39 171,-93"/>
+<polyline fill="none" stroke="turquoise" stroke-width="2" points="16,-89 20,-89 20,-85 16,-85 "/>
+<polyline fill="none" stroke="turquoise" stroke-width="2" points="16,-47 20,-47 20,-43 16,-43 "/>
+<text text-anchor="middle" x="93.5" y="-77.8" font-family="Times,serif" font-size="14.00">MainComponent.Factory</text>
+<text text-anchor="middle" x="93.5" y="-46.8" font-family="Times,serif" font-size="14.00">Subcomponent Creator</text>
+</g>
+<!-- 8bfaac54&#45;ebb0&#45;41ca&#45;a95d&#45;8b98222d6779 -->
+<g id="node6" class="node">
+<title>8bfaac54&#45;ebb0&#45;41ca&#45;a95d&#45;8b98222d6779</title>
+<g id="a_node6"><a xlink:href="com.example.myapplication.MainComponent.svg" xlink:title="MainComponent">
+<polygon fill="turquoise" stroke="turquoise" points="415,-84 305,-84 305,-48 415,-48 415,-84"/>
+<text text-anchor="middle" x="360" y="-62.3" font-family="Times,serif" font-size="14.00">MainComponent</text>
+</a>
+</g>
+</g>
+<!-- abe49a89&#45;e927&#45;4454&#45;bf04&#45;98bd2a2320dd&#45;&gt;8bfaac54&#45;ebb0&#45;41ca&#45;a95d&#45;8b98222d6779 -->
+<g id="edge1" class="edge">
+<title>abe49a89&#45;e927&#45;4454&#45;bf04&#45;98bd2a2320dd&#45;&gt;8bfaac54&#45;ebb0&#45;41ca&#45;a95d&#45;8b98222d6779:w</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M171.12,-66C207.76,-66 252.55,-66 293.86,-66"/>
+<polygon fill="black" stroke="black" points="294,-69.5 304,-66 294,-62.5 294,-69.5"/>
+<text text-anchor="middle" x="229" y="-69.8" font-family="Times,serif" font-size="14.00">subcomponent</text>
+</g>
+<!-- 3f54253b&#45;3f71&#45;49b3&#45;9925&#45;95f613e2256f -->
+<g id="node2" class="node">
+<title>3f54253b&#45;3f71&#45;49b3&#45;9925&#45;95f613e2256f</title>
+<polygon fill="turquoise" stroke="turquoise" points="165,-230 22,-230 22,-194 165,-194 165,-230"/>
+<text text-anchor="middle" x="93.5" y="-208.3" font-family="Times,serif" font-size="14.00">ObserveThingsUsecase</text>
+</g>
+<!-- 6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74 -->
+<g id="node3" class="node">
+<title>6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74</title>
+<polygon fill="aquamarine" stroke="aquamarine" points="433,-192 287,-192 287,-154 433,-154 433,-192"/>
+<text text-anchor="middle" x="360" y="-176.8" font-family="Times,serif" font-size="14.00">@Singleton</text>
+<text text-anchor="middle" x="360" y="-161.8" font-family="Times,serif" font-size="14.00">ThingsLocalDatasource</text>
+</g>
+<!-- 3f54253b&#45;3f71&#45;49b3&#45;9925&#45;95f613e2256f&#45;&gt;6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74 -->
+<g id="edge2" class="edge">
+<title>3f54253b&#45;3f71&#45;49b3&#45;9925&#45;95f613e2256f&#45;&gt;6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74</title>
+<path fill="none" stroke="black" d="M165.03,-201.6C199.45,-196.53 241.04,-190.39 276.88,-185.11"/>
+<polygon fill="black" stroke="black" points="277.44,-188.56 286.82,-183.64 276.42,-181.64 277.44,-188.56"/>
+</g>
+<!-- 5dccc935&#45;2ee9&#45;4bf9&#45;8636&#45;c42e450e4a52 -->
+<g id="node4" class="node">
+<title>5dccc935&#45;2ee9&#45;4bf9&#45;8636&#45;c42e450e4a52</title>
+<polygon fill="turquoise" stroke="turquoise" points="625,-192 470,-192 470,-154 625,-154 625,-192"/>
+<text text-anchor="middle" x="547.5" y="-176.8" font-family="Times,serif" font-size="14.00">@Named(&quot;firstThingId&quot;)</text>
+<text text-anchor="middle" x="547.5" y="-161.8" font-family="Times,serif" font-size="14.00">Integer</text>
+</g>
+<!-- 6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74&#45;&gt;5dccc935&#45;2ee9&#45;4bf9&#45;8636&#45;c42e450e4a52 -->
+<g id="edge4" class="edge">
+<title>6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74&#45;&gt;5dccc935&#45;2ee9&#45;4bf9&#45;8636&#45;c42e450e4a52</title>
+<path fill="none" stroke="black" d="M433.25,-173C441.88,-173 450.76,-173 459.56,-173"/>
+<polygon fill="black" stroke="black" points="459.85,-176.5 469.85,-173 459.85,-169.5 459.85,-176.5"/>
+</g>
+<!-- 3e39ea15&#45;4f75&#45;49e1&#45;a1a2&#45;32f7b3dabc24 -->
+<g id="node5" class="node">
+<title>3e39ea15&#45;4f75&#45;49e1&#45;a1a2&#45;32f7b3dabc24</title>
+<polygon fill="turquoise" stroke="turquoise" points="164.5,-176 22.5,-176 22.5,-140 164.5,-140 164.5,-176"/>
+<text text-anchor="middle" x="93.5" y="-154.3" font-family="Times,serif" font-size="14.00">GenerateThingUsecase</text>
+</g>
+<!-- 3e39ea15&#45;4f75&#45;49e1&#45;a1a2&#45;32f7b3dabc24&#45;&gt;6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74 -->
+<g id="edge3" class="edge">
+<title>3e39ea15&#45;4f75&#45;49e1&#45;a1a2&#45;32f7b3dabc24&#45;&gt;6324da46&#45;f407&#45;47ef&#45;a381&#45;06bb45c95e74</title>
+<path fill="none" stroke="black" d="M164.69,-161.98C198.95,-163.92 240.41,-166.27 276.21,-168.31"/>
+<polygon fill="black" stroke="black" points="276.46,-171.82 286.64,-168.9 276.85,-164.84 276.46,-171.82"/>
+</g>
+</g>
+</svg>
