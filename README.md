@@ -129,7 +129,7 @@ A slanted box indicates a binding instance [@BindsInstance](https://dagger.dev/a
 <img src="docs/com.example.myapplication.AppComponent.svg" alt="AppComponent"/>
 
 The component above will likely be useful to several views in our application, but for now we will
-use it only to set up our main view. We create a MainComponent as a Subcomponent of AppComponent so it can inherit dependencies from the
+use it only to set up our main view. We create a MainComponent as a @Subcomponent of AppComponent so it can inherit dependencies from the
 parent's modules (ThingModule, AppModule above) as well as create some of its own (MainModule below).  Exposing it's
 factory thru the AppComponent interface (mainFactory() method on the AppComponent interface above) makes this possible.
 
