@@ -1,5 +1,6 @@
 The following is a contrived example application that incorporates 
-Kotlin, Dagger, Coroutines, Flow & Channel, ViewModel, and LiveData.  
+Kotlin, Dagger, Coroutines, Flow & Channel, ViewModel, and LiveData. 
+ 
 It has two primary features:
 1. generate Things by clicking a button
 2. observe Things as they are created. 
