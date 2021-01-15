@@ -1,5 +1,5 @@
 The following is a contrived example application that incorporates 
-Dagger, Kotlin, Coroutines, Flow & Channel, ViewModel, and LiveData. 
+Dagger, Kotlin, Coroutines, Flow & Channel, ViewModel, LiveData and ViewBinding. 
  
 It has two primary features:
 1. generate Things by clicking a button
@@ -125,7 +125,7 @@ class ThingModule {
 }
 ```
 ### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AppComponent
-A slanted box indicates a binding instance [@BindsInstance](https://dagger.dev/api/2.28/dagger/BindsInstance.html)) passed into the component through the factory or builder. 
+A slanted box indicates a binding instance ([@BindsInstance](https://dagger.dev/api/2.28/dagger/BindsInstance.html)) passed into the component through the factory or builder. 
 <img src="docs/com.example.myapplication.AppComponent.svg" alt="AppComponent"/>
 
 The component above will likely be useful to several views in our application, but for now we will
