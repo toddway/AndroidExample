@@ -123,7 +123,7 @@ class ThingModule {
     fun AddThingUsecase(datasource: ThingsLocalDatasource) : GenerateThingUsecase = datasource
 }
 ```
-### [Code Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AppComponent
+### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AppComponent
 <img src="docs/com.example.myapplication.AppComponent.svg" alt="AppComponent"/>
 
 The component above will likely be useful to several views in our application, but for now we will
@@ -174,15 +174,15 @@ class MainModule {
 }
 ``` 
 
-### [Code Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for MainComponent
+### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for MainComponent
 <img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent"/>
 
-### [Component Diagram](https://c4model.com/#ComponentDiagram) of Local Module Dependencies (Gradle)
-Green boxes are Android Modules, red boxes are JVM modules, and orange boxes are Kotlin Multiplatform modules.  Arrows point to the dependency. 
+### [Component Level Diagram](https://c4model.com/#ComponentDiagram) of Local Module Dependencies
+The components in this diagram are Gradle modules. Green boxes are Android Modules, red boxes are JVM modules, and orange boxes are Kotlin Multiplatform modules.  Arrows point to the dependency. 
 
 <img src="docs/project.dot.png" alt="Local Dependency Graph"/>
 
-### [Component Diagram](https://c4model.com/#ComponentDiagram) of Remote Module Dependencies (Gradle)
-White boxes are local modules, orange boxes are remote modules. Transitive dependencies are excluded. Arrows point to the dependency.
+### [Component Level Diagram](https://c4model.com/#ComponentDiagram) of Remote Module Dependencies 
+The components in this diagram are Gradle modules.  White boxes are local modules, orange boxes are remote modules. Transitive dependencies are excluded. Arrows point to the dependency.
 
 <img src="docs/dependency-graph-my-generator.png" alt="Remote Dependency Graph"/>

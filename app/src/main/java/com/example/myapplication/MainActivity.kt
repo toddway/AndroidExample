@@ -59,12 +59,12 @@ interface MainComponent {
 @Module
 class MainModule {
     @Provides
-    fun ActivityMainBinding(activity: MainActivity): ActivityMainBinding {
+    fun provideActivityMainBinding(activity: MainActivity): ActivityMainBinding {
         return ActivityMainBinding.inflate(activity.layoutInflater)
             .apply { activity.setContentView(root) }
     }
     @Provides
-    fun MainViewModel(
+    fun provideMainViewModel(
         activity : MainActivity,
         observeThings: ObserveThingsUsecase,
         generateThing: GenerateThingUsecase
