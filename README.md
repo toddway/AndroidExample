@@ -1,5 +1,5 @@
 The following is a contrived example application that incorporates 
-Kotlin, Dagger, Coroutines, Flow & Channel, ViewModel, and LiveData. 
+Dagger, Kotlin, Coroutines, Flow & Channel, ViewModel, and LiveData. 
  
 It has two primary features:
 1. generate Things by clicking a button
