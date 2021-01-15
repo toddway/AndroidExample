@@ -126,6 +126,7 @@ class ThingModule {
 ```
 ### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AppComponent
 A slanted box indicates a binding instance ([@BindsInstance](https://dagger.dev/api/2.28/dagger/BindsInstance.html)) passed into the component through the factory or builder. 
+
 <img src="docs/com.example.myapplication.AppComponent.svg" alt="AppComponent"/>
 
 The component above will likely be useful to several views in our application, but for now we will
