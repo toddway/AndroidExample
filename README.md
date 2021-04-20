@@ -159,7 +159,7 @@ typical approach we want to use for this.  Since `AddThingViewModel` has an @Inj
 we use a Dagger `Provider` as an object that knows *how* to create new view model and the `ViewModelStoreOwner`
 will decide *when* to create it.   
 
-### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for MainComponent
+### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AddThingModule.Component
 <img src="docs/com.example.myapplication.AddThingModule.Component.svg" alt="AddThingComponent"/>
 
 ### [Component Level Diagram](https://c4model.com/#ComponentDiagram) of Local Module Dependencies
