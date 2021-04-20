@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feature_one_nav_graph"
+    app:startDestination="@id/last_thing_fragment">
+    <fragment
+        android:id="@+id/last_thing_fragment"
+        android:name="com.example.featureone.LastThingLayout$LayoutFragment"
+        tools:layout="@layout/last_thing_layout" >
+    </fragment>
+</navigation>

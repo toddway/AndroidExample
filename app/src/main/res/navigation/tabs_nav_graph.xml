@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tabs_nav"
+    app:startDestination="@id/tab_fragment_1">
+    <fragment
+        android:id="@id/tab_fragment_1"
+        android:name="com.example.myapplication.TabsLayout$TabFragment1">
+    </fragment>
+    <fragment
+        android:id="@id/tab_fragment_2"
+        android:name="com.example.myapplication.TabsLayout$TabFragment2">
+    </fragment>
+</navigation>

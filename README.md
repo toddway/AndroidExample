@@ -1,9 +1,9 @@
 The following is a contrived example application that incorporates 
-Dagger, Kotlin, Coroutines, Flow & Channel, ViewModel, LiveData and ViewBinding. 
+Dagger, Kotlin, Coroutines, Flow & Channel, ViewModel, LiveData, ViewBinding, and Navigation. 
  
 It has two primary features:
 1. generate Things by clicking a button
-2. observe Things as they are created. 
+2. observe Things that are created. 
 
 This suggests two use cases, GenerateThingUsecase and ObserveThingsUsecase, 
 that act on a Thing entity.
@@ -39,48 +39,43 @@ class ThingsLocalDatasource(var currentId : Int, val fakeDelay: Long)
 }
 ```
 
-Next we define a ViewModel to:
-1) mediate ui events from our main view (MainActivity) and
-2) broadcast data events (from our use cases) that our view can respond to.
+Next we define an AddThingViewModel to:
+1) mediate ui events (e.g. "Add Thing" button clicked) from a view, and
+2) broadcast data events (new Thing was generated) that a view can respond to.
 
 To accomplish this, our ViewModel constructor requires instances of both use cases (described above).
 ```kotlin
-class MainViewModel(
+class AddThingViewModel @Inject constructor(
     private val observeThings : ObserveThingsUsecase,
-    private val generateThing : GenerateThingUsecase
+    private val generateThing : GenerateThingUsecase,
 ) : ViewModel() {
     fun generateThingButtonClicked() { viewModelScope.launch { generateThing.generateThing() } }
     val thingLiveData = observeThings.observeThings().asLiveData()
 }
 ```
 
-The MainActivity can now focus on:
-1) sending button clicks to the ViewModel (using ViewBinding) and
-2) setting text when data changes are observed (using LiveData)
-
-Initializing ViewBinding and ViewModel instances requires boilerplate that we can delegate
-our dependency provider (Dagger) to inject when `inject(this)` is called.
+The AddThingLayout view can now focus only on:
+1) sending button click events to a ViewModel and
+2) setting display text when ViewModel data changes are observed
 
 ```kotlin
-class MainActivity : AppCompatActivity() {
-    @Inject lateinit var viewBinding : ActivityMainBinding
-    @Inject lateinit var viewModel : MainViewModel
+class AddThingLayout(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet) {
+    @Inject @FromStore lateinit var viewModel : AddThingViewModel
+    @Inject lateinit var lifecycleOwner: LifecycleOwner
+    private val binding by lazy { AddThingLayoutBinding.bind(this) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (application as App).component.mainFactory().create(this)
-            .inject(this)
-
-        viewBinding.generateThingButton.setOnClickListener {
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        if (isInEditMode) return
+        appComponent().addThingFactory().create(this).inject(this)
+        viewModel.thingLiveData.observe(lifecycleOwner, Observer {
+            binding.textView.text = "$it"
+        })
+        binding.generateThingButton.setOnClickListener {
             viewModel.generateThingButtonClicked()
         }
-
-        viewModel.thingLiveData.observe(this, Observer {
-            viewBinding.textView.text = "$it"
-        })
     }
 }
-
 ```
 Now we can use Dagger to generate the graph of dependencies needed to fulfill the @Inject requests above.
 In the Application class we initialize a Dagger AppComponent that
@@ -88,27 +83,28 @@ binds a @Singleton instance of ThingsLocalDatasource as the implementation for b
 Notice both the AppModule and ThingModule are required to fully build the component.  
 If either one were removed we would get a "missing dependency" compiler error.
 
-Note: the reference to MainComponent will be explained in the following step.
+Note: the reference to `addThingFactory()` will be explained in the following step.
 
 ```kotlin
 class App : Application(), FeatureOneComponent.Provider {
     val component by lazy { DaggerAppComponent.factory().create() }
 }
 
-@Component(modules = [AppModule::class, ThingModule::class])
-@Singleton
-interface AppComponent {
-    @Component.Factory
-    interface Factory {
-        fun create() : AppComponent
-    }
-
-    fun mainFactory() : MainComponent.Factory
-}
-
-@Module(subcomponents = [MainComponent::class])
+@Module
 class AppModule {
-    @Provides @Named("firstThingId") fun provideThingId() : Int = 2
+    @Provides
+    @Named("firstThingId") fun provideThingId() : Int = 1
+
+    @dagger.Component(modules = [AppModule::class, ThingModule::class])
+    @Singleton
+    interface Component {
+        @dagger.Component.Factory
+        interface Factory {
+            fun create(@BindsInstance @Named("appContext") appContext: Context) : Component
+        }
+
+        fun addThingFactory() : AddThingModule.Component.Factory
+    }
 }
 
 @Module
@@ -127,58 +123,44 @@ class ThingModule {
 ### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AppComponent
 A slanted box indicates a binding instance ([@BindsInstance](https://dagger.dev/api/2.28/dagger/BindsInstance.html)) passed into the component through the factory or builder. 
 
-<img src="docs/com.example.myapplication.AppComponent.svg" alt="AppComponent"/>
+<img src="docs/com.example.myapplication.AppModule.Component.svg" alt="AppComponent"/>
 
 The component above will likely be useful to several views in our application, but for now we will
-use it only to set up our main view. We create a MainComponent as a @Subcomponent of AppComponent so it can inherit dependencies from the
-parent's modules (ThingModule, AppModule above) as well as create some of its own (MainModule below).  Exposing it's
-factory thru the AppComponent interface (mainFactory() method on the AppComponent interface above) makes this possible.
-
-Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions for their initialization.
-We must use a ViewModelProvider.Factory.
+use it only to set up our first view. We create a AddThingModule.Component as a @Subcomponent of AppComponent so it can inherit dependencies from the
+parent's modules (ThingModule, AppModule above) as well as create some of its own.  Exposing it's
+factory thru the AppComponent interface (addThingFactory() method on the AppComponent interface above) makes this possible.
 
 ```kotlin
-@Subcomponent(modules = [MainModule::class])
-interface MainComponent {
-    fun inject(mainActivity: MainActivity)
-
-    @Subcomponent.Factory
-    interface Factory {
-        fun create(@BindsInstance activity: MainActivity) : MainComponent
-    }
-}
-
 @Module
-class MainModule {
+class AddThingModule {
     @Provides
-    fun ActivityMainBinding(activity: MainActivity): ActivityMainBinding {
-        return ActivityMainBinding.inflate(activity.layoutInflater)
-            .apply { activity.setContentView(root) }
-    }
+    fun LifecycleOwner(view: View) : LifecycleOwner = view.findFragment()
+
     @Provides
-    fun MainViewModel(
-        activity : MainActivity,
-        observeThings: ObserveThingsUsecase,
-        generateThing: GenerateThingUsecase
-    ): MainViewModel {
-        return ViewModelProvider(
-            activity,
-            object: ViewModelProvider.Factory {
-                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                    return if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                        MainViewModel(observeThings, generateThing) as T
-                    } else {
-                        throw IllegalArgumentException("Unknown ViewModel Class")
-                    }
-                }
-            }
-        ).get(MainViewModel::class.java)
+    @FromStore
+    fun ViewModel(view: View, provider : Provider<AddThingViewModel>) = provider.fromStore(view.findFragment())
+
+    @Subcomponent(modules = [AddThingModule::class])
+    interface Component {
+        fun inject(addThingLayout: AddThingLayout)
+
+        @Subcomponent.Factory
+        interface Factory {
+            fun create(@BindsInstance view: View) : Component
+        }
     }
 }
 ``` 
 
+Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions for their initialization.
+We must use a `androidx.lifecycle.ViewModelProvider` so that the view model can be paused, reused, and 
+only recreated when required by the lifecycle.  The `fromStore()` extension method encapsulates the 
+typical approach we want to use for this.  Since `AddThingViewModel` has an @Inject annotated constructor,
+we use a Dagger `Provider` as an object that knows *how* to create new view model and the `ViewModelStoreOwner`
+will decide *when* to create it.   
+
 ### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for MainComponent
-<img src="docs/com.example.myapplication.MainComponent.svg" alt="MainComponent"/>
+<img src="docs/com.example.myapplication.AddThingModule.Component.svg" alt="AddThingComponent"/>
 
 ### [Component Level Diagram](https://c4model.com/#ComponentDiagram) of Local Module Dependencies
 The components in this diagram are Gradle modules. Green boxes are Android Modules, red boxes are JVM modules, and orange boxes are Kotlin Multiplatform modules.  Arrows point to the dependency. 

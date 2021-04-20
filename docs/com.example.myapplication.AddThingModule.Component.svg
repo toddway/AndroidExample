@@ -1,0 +1,114 @@
+<svg width="805px" height="240px"
+ viewBox="0.00 0.00 804.80 239.80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0) translate(14.4 225.4)">
+<title>com.example.myapplication.AppModule.Component → com.example.myapplication.AddThingModule.Component</title>
+<polygon fill="white" stroke="transparent" points="-14.4,14.4 -14.4,-225.4 790.4,-225.4 790.4,14.4 -14.4,14.4"/>
+<text text-anchor="middle" x="168.5" y="-7.8" font-family="Times,serif" font-size="14.00">AppModule.Component → AddThingModule.Component</text>
+<g id="clust1" class="cluster">
+<title>cluster_Entry Points</title>
+<polygon fill="none" stroke="black" points="8,-58 8,-133 177,-133 177,-58 8,-58"/>
+<text text-anchor="middle" x="50" y="-117.8" font-family="Times,serif" font-size="14.00">Entry Points</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_Dependency Graph</title>
+<polygon fill="none" stroke="black" points="197,-31 197,-162 523,-162 523,-31 197,-31"/>
+<text text-anchor="middle" x="258" y="-146.8" font-family="Times,serif" font-size="14.00">Dependency Graph</text>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_AppModule.Component</title>
+<g id="a_clust5"><a xlink:href="com.example.myapplication.AppModule.Component.svg" xlink:title="Inherited from AppModule.Component\n@Singleton">
+<polygon fill="none" stroke="aquamarine" stroke-dasharray="5,2" points="543,-59 543,-203 776,-203 776,-59 543,-59"/>
+<text text-anchor="middle" x="659.5" y="-187.8" font-family="Times,serif" font-size="14.00">Inherited from AppModule.Component</text>
+<text text-anchor="middle" x="659.5" y="-172.8" font-family="Times,serif" font-size="14.00">@Singleton</text>
+</a>
+</g>
+</g>
+<!-- 71d53753&#45;4e79&#45;4a05&#45;85c1&#45;23d35e88fcc3 -->
+<g id="node1" class="node">
+<title>71d53753&#45;4e79&#45;4a05&#45;85c1&#45;23d35e88fcc3</title>
+<polygon fill="turquoise" stroke="turquoise" stroke-width="2" points="169,-102 16,-102 16,-98 12,-98 12,-94 16,-94 16,-74 12,-74 12,-70 16,-70 16,-66 169,-66 169,-102"/>
+<polyline fill="none" stroke="turquoise" stroke-width="2" points="16,-98 20,-98 20,-94 16,-94 "/>
+<polyline fill="none" stroke="turquoise" stroke-width="2" points="16,-74 20,-74 20,-70 16,-70 "/>
+<text text-anchor="middle" x="92.5" y="-80.3" font-family="Times,serif" font-size="14.00">inject (AddThingLayout)</text>
+</g>
+<!-- 8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119 -->
+<g id="node2" class="node">
+<title>8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119</title>
+<polygon fill="turquoise" stroke="turquoise" points="342,-131 205,-131 205,-93 342,-93 342,-131"/>
+<text text-anchor="middle" x="273.5" y="-115.8" font-family="Times,serif" font-size="14.00">@FromStore</text>
+<text text-anchor="middle" x="273.5" y="-100.8" font-family="Times,serif" font-size="14.00">AddThingViewModel</text>
+</g>
+<!-- 71d53753&#45;4e79&#45;4a05&#45;85c1&#45;23d35e88fcc3&#45;&gt;8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119 -->
+<g id="edge1" class="edge">
+<title>71d53753&#45;4e79&#45;4a05&#45;85c1&#45;23d35e88fcc3&#45;&gt;8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119</title>
+<path fill="none" stroke="black" d="M169.15,-95.83C177.66,-97.16 186.33,-98.52 194.86,-99.86"/>
+<polygon fill="black" stroke="black" points="194.37,-103.32 204.79,-101.41 195.45,-96.4 194.37,-103.32"/>
+</g>
+<!-- 06432bc9&#45;256e&#45;44bd&#45;9ab1&#45;509262a45357 -->
+<g id="node3" class="node">
+<title>06432bc9&#45;256e&#45;44bd&#45;9ab1&#45;509262a45357</title>
+<polygon fill="turquoise" stroke="turquoise" points="325.5,-75 221.5,-75 221.5,-39 325.5,-39 325.5,-75"/>
+<text text-anchor="middle" x="273.5" y="-53.3" font-family="Times,serif" font-size="14.00">LifecycleOwner</text>
+</g>
+<!-- 71d53753&#45;4e79&#45;4a05&#45;85c1&#45;23d35e88fcc3&#45;&gt;06432bc9&#45;256e&#45;44bd&#45;9ab1&#45;509262a45357 -->
+<g id="edge2" class="edge">
+<title>71d53753&#45;4e79&#45;4a05&#45;85c1&#45;23d35e88fcc3&#45;&gt;06432bc9&#45;256e&#45;44bd&#45;9ab1&#45;509262a45357</title>
+<path fill="none" stroke="black" d="M169.15,-72.59C183.22,-70.47 197.75,-68.27 211.32,-66.23"/>
+<polygon fill="black" stroke="black" points="212.12,-69.65 221.48,-64.7 211.07,-62.73 212.12,-69.65"/>
+</g>
+<!-- d3f1a659&#45;0a09&#45;4045&#45;ad8d&#45;a9732247c1c5 -->
+<g id="node4" class="node">
+<title>d3f1a659&#45;0a09&#45;4045&#45;ad8d&#45;a9732247c1c5</title>
+<polygon fill="turquoise" stroke="turquoise" points="490.17,-76 420.7,-76 402.83,-40 472.3,-40 490.17,-76"/>
+<text text-anchor="middle" x="446.5" y="-54.3" font-family="Times,serif" font-size="14.00">View</text>
+</g>
+<!-- 8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119&#45;&gt;d3f1a659&#45;0a09&#45;4045&#45;ad8d&#45;a9732247c1c5 -->
+<g id="edge3" class="edge">
+<title>8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119&#45;&gt;d3f1a659&#45;0a09&#45;4045&#45;ad8d&#45;a9732247c1c5</title>
+<path fill="none" stroke="black" d="M334.79,-92.96C358.53,-85.46 385.12,-77.07 406.29,-70.38"/>
+<polygon fill="black" stroke="black" points="407.42,-73.69 415.9,-67.35 405.31,-67.02 407.42,-73.69"/>
+</g>
+<!-- 6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2 -->
+<g id="node5" class="node">
+<title>6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2</title>
+<polygon fill="turquoise" stroke="turquoise" points="515,-130 378,-130 378,-94 515,-94 515,-130"/>
+<text text-anchor="middle" x="446.5" y="-108.3" font-family="Times,serif" font-size="14.00">AddThingViewModel</text>
+</g>
+<!-- 8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119&#45;&gt;6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2 -->
+<g id="edge4" class="edge">
+<title>8d872cd1&#45;3c79&#45;4280&#45;bcb9&#45;0a378b144119&#45;&gt;6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2</title>
+<path fill="none" stroke="black" d="M342.08,-112C350.54,-112 359.24,-112 367.83,-112"/>
+<polygon fill="black" stroke="black" points="367.85,-115.5 377.85,-112 367.85,-108.5 367.85,-115.5"/>
+</g>
+<!-- 06432bc9&#45;256e&#45;44bd&#45;9ab1&#45;509262a45357&#45;&gt;d3f1a659&#45;0a09&#45;4045&#45;ad8d&#45;a9732247c1c5 -->
+<g id="edge5" class="edge">
+<title>06432bc9&#45;256e&#45;44bd&#45;9ab1&#45;509262a45357&#45;&gt;d3f1a659&#45;0a09&#45;4045&#45;ad8d&#45;a9732247c1c5</title>
+<path fill="none" stroke="black" d="M325.81,-57.3C349.86,-57.44 378.25,-57.61 401.33,-57.74"/>
+<polygon fill="black" stroke="black" points="401.51,-61.24 411.53,-57.8 401.55,-54.24 401.51,-61.24"/>
+</g>
+<!-- 1fb5dddc&#45;98de&#45;480f&#45;8bf7&#45;5598a6546553 -->
+<g id="node6" class="node">
+<title>1fb5dddc&#45;98de&#45;480f&#45;8bf7&#45;5598a6546553</title>
+<polygon fill="turquoise" stroke="turquoise" points="730.5,-157 588.5,-157 588.5,-121 730.5,-121 730.5,-157"/>
+<text text-anchor="middle" x="659.5" y="-135.3" font-family="Times,serif" font-size="14.00">GenerateThingUsecase</text>
+</g>
+<!-- 6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2&#45;&gt;1fb5dddc&#45;98de&#45;480f&#45;8bf7&#45;5598a6546553 -->
+<g id="edge7" class="edge">
+<title>6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2&#45;&gt;1fb5dddc&#45;98de&#45;480f&#45;8bf7&#45;5598a6546553</title>
+<path fill="none" stroke="black" d="M515.13,-120.65C535.23,-123.23 557.44,-126.07 578.25,-128.73"/>
+<polygon fill="black" stroke="black" points="577.98,-132.23 588.35,-130.02 578.87,-125.28 577.98,-132.23"/>
+</g>
+<!-- 0fbcae7c&#45;cb93&#45;42c1&#45;9165&#45;634a8ee8ed7e -->
+<g id="node7" class="node">
+<title>0fbcae7c&#45;cb93&#45;42c1&#45;9165&#45;634a8ee8ed7e</title>
+<polygon fill="turquoise" stroke="turquoise" points="731,-103 588,-103 588,-67 731,-67 731,-103"/>
+<text text-anchor="middle" x="659.5" y="-81.3" font-family="Times,serif" font-size="14.00">ObserveThingsUsecase</text>
+</g>
+<!-- 6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2&#45;&gt;0fbcae7c&#45;cb93&#45;42c1&#45;9165&#45;634a8ee8ed7e -->
+<g id="edge6" class="edge">
+<title>6c287cee&#45;7465&#45;4a5f&#45;a92c&#45;d0eda611bfe2&#45;&gt;0fbcae7c&#45;cb93&#45;42c1&#45;9165&#45;634a8ee8ed7e</title>
+<path fill="none" stroke="black" d="M515.13,-103.35C535.13,-100.79 557.21,-97.96 577.93,-95.31"/>
+<polygon fill="black" stroke="black" points="578.51,-98.76 587.98,-94.02 577.62,-91.82 578.51,-98.76"/>
+</g>
+</g>
+</svg>

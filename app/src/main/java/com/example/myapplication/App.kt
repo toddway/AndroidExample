@@ -2,61 +2,14 @@ package com.example.myapplication
 
 import android.app.Application
 import android.content.Context
-import com.example.featureone.DaggerFeatureOneComponent
-import com.example.featureone.FeatureOneComponent
-import com.example.thingdata.GenerateThingUsecase
-import com.example.thingdata.GetLastGeneratedThingUsecase
-import com.example.thingdata.ObserveThingsUsecase
-import com.example.thingdata.ThingsLocalDatasource
-import dagger.BindsInstance
-import dagger.Component
-import dagger.Module
-import dagger.Provides
-import javax.inject.Named
-import javax.inject.Singleton
+import android.view.View
+import com.example.featureone.FeatureOneModule
+import javax.inject.Qualifier
 
-class App : Application(), FeatureOneComponent.Provider {
-    val component by lazy { DaggerAppComponent.factory().create(this) }
-    override fun featureOneComponent(): FeatureOneComponent = component.featureOneComponent()
+class App : Application(), FeatureOneModule.Component.Provider {
+    val component by lazy { DaggerAppModule_Component.factory().create(this) }
+    override fun featureOneComponent(): FeatureOneModule.Component = component.featureOneComponent()
 }
 
-@Component(modules = [AppModule::class, ThingModule::class])
-@Singleton
-interface AppComponent {
-    @Component.Factory
-    interface Factory {
-        fun create(@BindsInstance appContext: Context) : AppComponent
-    }
-
-    fun mainFactory() : MainComponent.Factory
-    fun featureOneComponent() : FeatureOneComponent
-}
-
-@Module(subcomponents = [MainComponent::class])
-class AppModule {
-    @Provides
-    @Named("firstThingId") fun provideThingId() : Int = 2
-
-    @Provides
-    @Named("screenOneText") fun provideScreenOneText() : String = "This text provided by AppModule!!!"
-
-    @Provides
-    fun UiFeatureOneComponent(lastGeneratedThingUsecase: GetLastGeneratedThingUsecase)
-            = DaggerFeatureOneComponent.factory().create(lastGeneratedThingUsecase)
-}
-
-@Module
-class ThingModule {
-    @Provides
-    @Singleton
-    fun ThingsLocalDatasource(@Named("firstThingId") thingId : Int) : ThingsLocalDatasource = ThingsLocalDatasource(thingId, 1000L)
-
-    @Provides
-    fun ObserveThingsUsecase(datasource: ThingsLocalDatasource) : ObserveThingsUsecase = datasource
-
-    @Provides
-    fun AddThingUsecase(datasource: ThingsLocalDatasource) : GenerateThingUsecase = datasource
-
-    @Provides
-    fun GetLastGeneratedThingUsecase(datasource: ThingsLocalDatasource) : GetLastGeneratedThingUsecase = datasource
-}
+fun Context.appComponent() = (applicationContext as App).component
+fun View.appComponent() = context.appComponent()
