@@ -54,36 +54,39 @@ class AddThingViewModel @Inject constructor(
 }
 ```
 
-The AddThingLayout view can now focus only on:
-1) sending button click events to a ViewModel and
-2) setting display text when ViewModel data changes are observed
+The AddThing UI Composable will then:
+1) send button click events to the ViewModel and
+2) set display text when the ViewModel data changes are observed
 
 ```kotlin
-class AddThingLayout(context: Context, attributeSet: AttributeSet) : ConstraintLayout(context, attributeSet) {
-    @Inject @FromStore lateinit var viewModel : AddThingViewModel
-    @Inject lateinit var lifecycleOwner: LifecycleOwner
-    private val binding by lazy { AddThingLayoutBinding.bind(this) }
+@Composable
+fun AddThing(viewModel: AddThingViewModel) {
+    val lastThingText = rememberSaveable { mutableStateOf("") }
+    val thingState = viewModel.thingFlow.collectAsState(null)
+    thingState.value?.let { lastThingText.value = "$it" }
+    AddThing(viewModel::generateThingButtonClicked, lastThingText.value)
+}
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        if (isInEditMode) return
-        appComponent().addThingFactory().create(this).inject(this)
-        viewModel.thingLiveData.observe(lifecycleOwner, Observer {
-            binding.textView.text = "$it"
-        })
-        binding.generateThingButton.setOnClickListener {
-            viewModel.generateThingButtonClicked()
+@Preview
+@Composable
+fun AddThing(onClick : () -> Unit = {}, text : String = "") {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Text(text = text, Modifier.padding(8.dp), fontSize = 20.sp)
+        Button(onClick = onClick) {
+            Text(text = "Add a thing")
         }
     }
 }
 ```
-Now we can use Dagger to generate the graph of dependencies needed to fulfill the @Inject requests above.
+Now we can use Dagger to generate the graph of dependencies needed to provide the AddThingViewModel.
 In the Application class we initialize a Dagger AppComponent that
 binds a @Singleton instance of ThingsLocalDatasource as the implementation for both ObserveThingUsecase and GenerateThingUsecase.
 Notice both the AppModule and ThingModule are required to fully build the component.  
 If either one were removed we would get a "missing dependency" compiler error.
-
-Note: the reference to `addThingFactory()` will be explained in the following step.
 
 ```kotlin
 class App : Application(), FeatureOneComponent.Provider {
@@ -103,7 +106,7 @@ class AppModule {
             fun create(@BindsInstance @Named("appContext") appContext: Context) : Component
         }
 
-        fun addThingFactory() : AddThingModule.Component.Factory
+        fun addThingViewModel() : Provider<AddThingViewModel>
     }
 }
 
@@ -126,37 +129,25 @@ A slanted box indicates a binding instance ([@BindsInstance](https://dagger.dev/
 <img src="docs/com.example.myapplication.AppModule.Component.svg" alt="AppComponent"/>
 
 The component above will likely be useful to several views in our application, but for now we will
-use it only to set up our first view. We create a AddThingModule.Component as a @Subcomponent of AppComponent so it can inherit dependencies from the
-parent's modules (ThingModule, AppModule above) as well as create some of its own.  Exposing it's
-factory thru the AppComponent interface (addThingFactory() method on the AppComponent interface above) makes this possible.
+use it only to set up our first view.
 
 ```kotlin
-@Module
-class AddThingModule {
-    @Provides
-    fun LifecycleOwner(view: View) : LifecycleOwner = view.findFragment()
+class TabFragment1 : Fragment() {
+    private val viewModel : AddThingViewModel by viewModelStore {
+        requireContext().appComponent().addThingViewModel().get()
+    }
 
-    @Provides
-    @FromStore
-    fun ViewModel(view: View, provider : Provider<AddThingViewModel>) = provider.fromStore(view.findFragment())
-
-    @Subcomponent(modules = [AddThingModule::class])
-    interface Component {
-        fun inject(addThingLayout: AddThingLayout)
-
-        @Subcomponent.Factory
-        interface Factory {
-            fun create(@BindsInstance view: View) : Component
-        }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return ComposeView(requireContext()).apply { setContent { AddThing(viewModel) } }
     }
 }
 ``` 
 
 Note: Jetpack ViewModels are lifecycle-aware and thus have special conventions for their initialization.
 We must use a `androidx.lifecycle.ViewModelProvider` so that the view model can be paused, reused, and 
-only recreated when required by the lifecycle.  The `fromStore()` extension method encapsulates the 
-typical approach we want to use for this.  Since `AddThingViewModel` has an @Inject annotated constructor,
-we use a Dagger `Provider` as an object that knows *how* to create new view model and the `ViewModelStoreOwner`
+only recreated when required by the lifecycle.  The `viewModelStore` extension method encapsulates the
+typical approach we want to use for this.
+We use a Dagger `Provider` as an object that knows *how* to create new view model and the `ViewModelStoreOwner`
 will decide *when* to create it.   
 
 ### [Code Level Diagram](https://c4model.com/#CodeDiagram) of Injected Object Dependencies for AddThingModule.Component
@@ -171,3 +162,6 @@ The components in this diagram are Gradle modules. Green boxes are Android Modul
 The components in this diagram are Gradle modules.  White boxes are local modules, orange boxes are remote modules. Transitive dependencies are excluded. Arrows point to the dependency.
 
 <img src="docs/dependency-graph-my-generator.png" alt="Remote Dependency Graph"/>
+
+Note: The graph generator doesn't currently work with the updated Gradle version that was required to support Compose.
+So for now, the generated graphs are out of date.

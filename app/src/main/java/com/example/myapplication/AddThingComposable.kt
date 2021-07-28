@@ -16,6 +16,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@Composable
+fun AddThing(viewModel: AddThingViewModel) {
+    val lastThingText = rememberSaveable { mutableStateOf("") }
+    val thingState = viewModel.thingFlow.collectAsState(null)
+    thingState.value?.let { lastThingText.value = "$it" }
+    AddThing(viewModel::generateThingButtonClicked, lastThingText.value)
+}
+
 @Preview
 @Composable
 fun AddThing(onClick : () -> Unit = {}, text : String = "") {
@@ -29,12 +37,4 @@ fun AddThing(onClick : () -> Unit = {}, text : String = "") {
             Text(text = "Add a thing")
         }
     }
-}
-
-@Composable
-fun AddThing(viewModel: AddThingViewModel) {
-    val lastThingText = rememberSaveable { mutableStateOf("") }
-    val thingState = viewModel.thingFlow.collectAsState(null)
-    thingState.value?.let { lastThingText.value = "$it" }
-    AddThing(viewModel::generateThingButtonClicked, lastThingText.value)
 }
