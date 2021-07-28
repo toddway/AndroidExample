@@ -47,10 +47,10 @@ To accomplish this, our ViewModel constructor requires instances of both use cas
 ```kotlin
 class AddThingViewModel @Inject constructor(
     private val observeThings : ObserveThingsUsecase,
-    private val generateThing : GenerateThingUsecase,
+    private val generateThing : GenerateThingUsecase
 ) : ViewModel() {
     fun generateThingButtonClicked() { viewModelScope.launch { generateThing.generateThing() } }
-    val thingLiveData = observeThings.observeThings().asLiveData()
+    val thingFlow = observeThings.observeThings()
 }
 ```
 
