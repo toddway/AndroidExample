@@ -8,6 +8,7 @@ import dagger.BindsInstance
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
+import javax.inject.Provider
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -31,8 +32,8 @@ class AppModule {
             fun create(@BindsInstance @Named("appContext") appContext: Context) : Component
         }
 
-        fun addThingFactory() : AddThingModule.Component.Factory
         fun featureOneComponent() : FeatureOneModule.Component
+        fun addThingViewModel() : Provider<AddThingViewModel>
     }
 }
 
